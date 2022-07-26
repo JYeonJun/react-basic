@@ -10,20 +10,16 @@
   <script type="text/babel">
     const root = document.getElementById("root");
     let counter = 0;
-    function countUp() {
-      counter = counter + 1;
-      reRender();
+    function App() {
+      const [counter, modifier] = React.useState(0);
+      return (
+        <div>
+          <h3>Total clicks: 0</h3>
+          <button>Click me</button>
+        </div>
+      );
     }
-    function reRender() {
-      ReactDOM.render(<Container />, root);
-    }
-    const Container = () => (
-      <div>
-        <h3>Total clicks: {counter}</h3>
-        <button onClick={countUp}>Click me</button>
-      </div>
-    );
 
-    ReactDOM.render(<Container />, root); // container를 root 안에 랜더링
+    ReactDOM.render(<App />, root); // App을 root 안에 랜더링
   </script>
 </html>
