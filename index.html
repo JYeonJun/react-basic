@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <head> </head>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+  </head>
   <body>
     <div id="root"></div>
   </body>
@@ -9,30 +11,53 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    let counter = 0;
-    function App() {
-      const [minutes, setMinutes] = React.useState();
+
+    function MinutesToHours() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
       const onChange = (event) => {
-        setMinutes(event.target.value);
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
       };
       return (
         <div>
           <h1 className="hi">Super Converter</h1>
-          <label htmlFor="minutes">minutes</label>
-          <input
-            value={minutes}
-            id="miniutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-          />
-          <h4>You want to convert {minutes}</h4>
-          <label htmlFor="hours">hours</label>
-          <input id="hours" placeholder="Hours" type="number" />
+          <div>
+            <label htmlFor="minutes">minutes</label>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="hours">hours</label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              disabled={!inverted}
+              onChange={onChange}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
         </div>
       );
     }
 
-    ReactDOM.render(<App />, root); // App을 root 안에 랜더링
+    function App() {}
+
+    ReactDOM.render(<MinutesToHours />, root); // App을 root 안에 랜더링
   </script>
 </html>
