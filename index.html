@@ -25,7 +25,6 @@
       };
       return (
         <div>
-          <h1 className="hi">Super Converter</h1>
           <div>
             <label htmlFor="minutes">minutes</label>
             <input
@@ -55,9 +54,39 @@
         </div>
       );
     }
+    function KmToMiles() {
+      const [amount, setAmount] = React.useState(0);
+      return (
+        <div>
+          <h3>KM 2 M</h3>
+          <div>
+            <label for="km">KM</label>
+            <input id="km" placeholder="0km" type="number" />
+          </div>
+        </div>
+      );
+    }
+    function App() {
+      const [index, setIndex] = React.useState("");
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="">Select your Unites</option>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Km & Miles</option>
+          </select>
+          <hr />
+          {index === "" ? "Please select yout uniyd" : null}
+          {index === "0" ? <MinutesToHours /> : null}
+          {index === "1" ? <KmToMiles /> : null}
+        </div>
+      );
+    }
 
-    function App() {}
-
-    ReactDOM.render(<MinutesToHours />, root); // App을 root 안에 랜더링
+    ReactDOM.render(<App />, root); // App을 root 안에 랜더링
   </script>
 </html>
