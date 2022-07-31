@@ -12,7 +12,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Btn({ text, changeValue, fontSize }) {
+    function Btn({ text, changeValue, fontSize = 16 }) {
       console.log(text, "was rendered");
       return (
         <button
